@@ -28,7 +28,6 @@
     "ng-scrollbars": "^0.0.11",
     "jquery.scrollbar": "*",
     "angular-nvd3": "*",
-    //"infinity-angular-chosen": "^0.2.0",
     "angular-flash-alert": "^2.4.0",
     "components-font-awesome": "^4.7.0",
     "textAngular": "^1.5.16",
