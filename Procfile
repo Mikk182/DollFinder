@@ -1,2 +1,2 @@
-web: node app-server.js
-ps:scale web=1 worker=0
+worker: node app-server.js
+ps:scale web=0 worker=1
