@@ -16,24 +16,25 @@
             'flow',
             'angular-loading-bar',
             'hl.sticky',
-            'stripe.checkout',
- 
-            'watch',
-            'cart',
-            'admin',
+            //'stripe.checkout',
+
+            'doll',
+            //'watch',
+            //'cart',
+            //'admin',
             
             'config'
         ])
         .config(config)
         .run(run);
 
-    config.$inject = ['$stateProvider', '$urlRouterProvider', 'cfpLoadingBarProvider', 'NotificationProvider', 'StripeCheckoutProvider', 'STRIPE_KEY'];
-    function config($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, NotificationProvider, StripeCheckoutProvider, STRIPE_KEY) {
+    config.$inject = ['$stateProvider', '$urlRouterProvider', 'cfpLoadingBarProvider', 'NotificationProvider'];
+    function config($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, NotificationProvider) {
         cfpLoadingBarProvider.includeSpinner = false;
 
-        StripeCheckoutProvider.defaults({
-            key: STRIPE_KEY
-        });
+        //StripeCheckoutProvider.defaults({
+        //    key: STRIPE_KEY
+        //});
 
         NotificationProvider.setOptions({
             startTop: 25,
@@ -52,47 +53,49 @@
             var state = "";
             
             switch (crAcl.getRole()) {
-                case 'ROLE_ADMIN':
-                    state = 'admin.watches';
-                    break;
-                default : state = 'main.watch';
+                //case 'ROLE_ADMIN':
+                //    state = 'admin.watches';
+                //    break;
+                default : state = 'main.doll';
             }
 
             if (state) $state.go(state);
             else $location.path('/');
         });
- 
+
         $stateProvider
-            .state('main', {
-                url: '/',
-                abstract: true,
-                templateUrl: '../views/main.html',
-                controller: 'CartCtrl as cart',
-                resolve: {
-                    // checkout.js isn't fetched until this is resolved.
-                    stripe: StripeCheckoutProvider.load
-                },
-                data: {
-                    is_granted: ['ROLE_GUEST']
-                }
-            })
-            .state('blog', {
-                url: '/blog',
-                templateUrl: '../blog.html'
-            })
-            .state('auth', {
-                url: '/login',
-                templateUrl: '../views/auth/login.html',
-                controller: 'AuthCtrl as auth',
-                onEnter: ['AuthService', 'crAcl', function(AuthService, crAcl) {
-                    AuthService.clearCredentials();
-                    crAcl.setRole();
-                }],
-                data: {
-                    is_granted: ['ROLE_GUEST']
-                }
-            });
-    } 
+            .state('main',
+                {
+                    url: '/',
+                    abstract: true,
+                    templateUrl: '../views/main.html',
+                    controller: 'DollCtrl as doll',
+                    //resolve: {
+                    //    // checkout.js isn't fetched until this is resolved.
+                    //    stripe: StripeCheckoutProvider.load
+                    //},
+                    data: {
+                        is_granted: ['ROLE_GUEST']
+                    }
+                })
+            .state('blog',
+                {
+                    url: '/blog',
+                    templateUrl: '../blog.html'
+                });
+        //.state('auth', {
+        //    url: '/login',
+        //    templateUrl: '../views/auth/login.html',
+        //    controller: 'AuthCtrl as auth',
+        //    onEnter: ['AuthService', 'crAcl', function(AuthService, crAcl) {
+        //        AuthService.clearCredentials();
+        //        crAcl.setRole();
+        //    }],
+        //    data: {
+        //        is_granted: ['ROLE_GUEST']
+        //    }
+        //});
+    }
 
     run.$inject = ['$rootScope', '$cookieStore', '$state', 'crAcl'];
     function run($rootScope, $cookieStore, $state, crAcl) {
@@ -106,7 +109,7 @@
             });
 
         crAcl
-            .setRedirect('main.watch');
+            .setRedirect('main.doll');
 
         if ($rootScope.globals.currentUser) {
             crAcl.setRole($rootScope.globals.currentUser.metadata.role);

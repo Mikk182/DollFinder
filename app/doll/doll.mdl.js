@@ -2,8 +2,8 @@
     'use strict';
     
     angular
-        .module('watch', [
-            'watch.profile'
+        .module('doll', [
+            'doll.profile'
         ])
         .config(config);
 
@@ -11,10 +11,10 @@
     function config($stateProvider, $urlRouterProvider) {
  
         $stateProvider
-            .state('main.watch', {
+            .state('main.doll', {
                 url: '?key&value',
-                templateUrl: '../views/watch/watch.list.html',
-                controller: 'WatchCtrl as vm'
+                templateUrl: '../views/doll/doll.list.html',
+                controller: 'DollCtrl as vm'
             });
     }
 })();

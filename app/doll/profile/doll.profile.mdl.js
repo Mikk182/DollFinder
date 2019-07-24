@@ -2,19 +2,19 @@
     'use strict';
     
     angular
-        .module('watch.profile', [])
+        .module('doll.profile', [])
         .config(config);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
     function config($stateProvider, $urlRouterProvider) {
  
         $stateProvider
-            .state('main.watch.profile', {
-                url: 'watches/:slug',
+            .state('main.doll.profile', {
+                url: 'dolls/:slug',
                 views: {
                     '@main': {
-                        templateUrl: '../views/watch/watch.profile.html',
-                        controller: 'WatchProfileCtrl as vm'
+                        templateUrl: '../views/doll/doll.profile.html',
+                        controller: 'DollProfileCtrl as vm'
                     }
                 }
             });
